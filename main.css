@@ -1,0 +1,91 @@
+#main {
+    width: 30vw;
+    height: 55vh;
+    position: absolute;
+    margin-top: 4%;
+    /* float: left; */
+   pointer-events: none;
+}
+
+#second_cav {
+    /* background-color: black; */
+    width: 25vw;
+    height: 26vh;
+    position: absolute;
+    margin-left: 15%;
+    margin-top: 0;
+    padding: 0px;
+}
+
+
+#second {
+    background-color: rgba(211, 211, 211, 0.532);
+    width: 22vw;
+    height: 55vh;
+    position: absolute;
+    margin-left: 48%;
+    margin-top: 3%;
+    border: 5px solid black;
+
+}
+
+#outer {
+    height: 65vh;
+    background-image: url(./img/cat_bg.png);
+    background-position: 0px 20%;
+    background-color: rgba(211, 211, 211, 0.606);
+    background-blend-mode: multiply;
+    padding-left: 10%;
+    margin-left: 10%;
+    margin-top: 3%;
+    border: 5px solid black;
+    position: relative;
+}
+
+
+#btn_start {
+    padding: 10px 20px;
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: gray;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    position: absolute;
+    bottom: 2vh;
+    margin: 0;
+    float: left;
+    /* left: 1vw; */
+
+}
+
+
+#btn_start {
+    left: 2vw;
+    width: 80%;
+}
+
+
+#btn_start:hover {
+    background-color: #3e8e41
+}
+
+
+#btn_start:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+#time {
+    background-color: rgba(62, 142, 65, 0.525);
+    width: 100%;
+    height: 80px;
+    border: 1px solid lightgray;
+    float: left;
+    position: absolute;
+    top: 59%;
+}
