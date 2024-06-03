@@ -7,12 +7,95 @@
     <title>Document</title>
     <style>
         #main {
-            width: 600px;
-            height: 600px;
-            position: relative;
+            width: 30vw;
+            height: 55vh;
+            position: absolute;
+            margin-top: 4%;
+            /* float: left; */
+           pointer-events: none;
+        }
+
+        #second_cav {
+            /* background-color: black; */
+            width: 25vw;
+            height: 26vh;
+            position: absolute;
+            margin-left: 15%;
+            margin-top: 0;
+            padding: 0px;
+        }
+
+
+        #second {
+            background-color: rgba(211, 211, 211, 0.532);
+            width: 22vw;
+            height: 55vh;
+            position: absolute;
+            margin-left: 48%;
+            margin-top: 3%;
             border: 5px solid black;
-            margin-left: 50px;
-            box-sizing: border-box;
+
+        }
+
+        #outer {
+            height: 65vh;
+            background-image: url(./img/cat_bg.png);
+            background-position: 0px 20%;
+            background-color: rgba(211, 211, 211, 0.606);
+            background-blend-mode: multiply;
+            padding-left: 10%;
+            margin-left: 10%;
+            margin-top: 3%;
+            border: 5px solid black;
+            position: relative;
+        }
+
+
+        #btn_start {
+            padding: 10px 20px;
+            font-size: 25px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: gray;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+            position: absolute;
+            bottom: 2vh;
+            margin: 0;
+            float: left;
+            /* left: 1vw; */
+
+        }
+
+
+        #btn_start {
+            left: 2vw;
+            width: 80%;
+        }
+
+
+        #btn_start:hover {
+            background-color: #3e8e41
+        }
+
+
+        #btn_start:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        #time {
+            background-color: rgba(62, 142, 65, 0.525);
+            width: 100%;
+            height: 80px;
+            border: 1px solid lightgray;
+            float: left;
+            position: absolute;
+            top: 59%;
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -23,8 +106,36 @@
 </head>
 
 <body>
-    <div id="main" class="row"></div>
+    <div class="row">
+        <div id="outer" class="col-8">
+
+            <div class="col-1"></div>
+
+            <div id="main" class="col-6">
+                <!-- <img src="./img/cat1.png" style="display: none;"> -->
+                <!-- <img src="./img/0525151956_628dca8c2127a.jpg" style="display: none;"> -->
+                <!-- <img id="pic" src="./img/p.jpg" style="display: none;"> -->      
+            </div>
+
+            <div id="second" class="col-1">
+                <h2 id="showpic_text"></h2>
+                <div id="time">
+                    <label class="text-center w-100 mt-3" style="font-size: 32px;">時間：<span
+                            id="times">00:00:00</span></label>
+                </div>
+                <div id="second_cav"></div>
+                <button id="btn_start">遊戲開始</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.2/jsoneditor.min.js"
+        integrity="sha512-QoEa+2J/Sie4bjZNs546qH2o7pK246K7bPYqMOkIU2J7Hdj6axTsPqYbbr0SgQ7iSAomOSa922z+z6yNbECGJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./main2.js"></script>
 </body>
-<script src="./main.js"></script>
 
 </html>
