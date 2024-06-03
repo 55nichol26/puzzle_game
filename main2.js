@@ -1,6 +1,5 @@
 
 
-
 window.onload = start;
 
 function init() {
@@ -47,6 +46,9 @@ function init() {
 }
 
 function start() {
+
+
+
     let wrap = document.getElementById('main');
     for (let i = 1; i < 5; i++) {
         let img = document.createElement("img");
@@ -125,9 +127,9 @@ function start() {
             time_GO = setInterval(function () {
                 time_go()
             }, 10)
-
             showpic_text.innerText = "目標圖示:"
             btn_start.innerText = "重來";
+            // canvas.toDataURL("image/jpg");
         } else if (btn_start.innerText == "重來") {
             location_random = [...new Set(arr)]
             blank = 8;
@@ -159,12 +161,14 @@ function start() {
             btn_start.innerText = "重來";
             stage++;
             wrap.style.pointerEvents = "auto";
+            // aDownload.href = canvas.toDataURL("image/jpg");
         }
         // btn_reset.style.visibility="visible";
         // btn_finish.style.visibility="visible";
         // btn_start.style.display="none";
 
     });
+
 
     //點擊移動
     canvas.addEventListener("click", e => {
@@ -284,7 +288,7 @@ function start() {
             }
 
         }
-  
+
         return ind;
     }
 
@@ -453,8 +457,58 @@ function start() {
         ctx.stroke();
     }
 
+    let download = document.getElementById('download');
+    download.addEventListener("click", e => {
+        console.log(`hiii`)
+
+        //  let link = document.getElementById('aDownload')
+        var link = document.createElement('a');
+        link.download = 'cat.jpg';
+        link.href = document.getElementById('canvas1').toDataURL()
+        link.click();
+    })
+
+
+
+
+    var imageLoader = document.getElementById('imageLoader');
+    imageLoader.addEventListener('change', handleImage, false);
+    /////////////我是分隔線//////////////
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = new Image();
+            img.onload = function () {
+
+                perCol = img.width / 3;
+                perRow = img.height / 3;
+                for (let i = 0; i < arr.length; i++) {
+                    ctx.drawImage(
+                        img,
+                        perCol * arr[i][0],
+                        perRow * arr[i][1],
+                        perCol,
+                        perRow,
+                        (canvas.width / 3) * arr[i][0], //位子變化
+                        (canvas.height / 3) * arr[i][1], //位子變化
+                        canvas.width / 3,
+                        canvas.height / 3
+                    );
+                }
+                ans_view();
+                // line(ctx);
+            }
+            img.src = event.target.result;
+            img_src = event.target.result;
+            btn_start.innerText = "遊戲開始";
+            showpic_text.innerText = "目標圖示:"
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
 
 }
+
+
 
 
 
