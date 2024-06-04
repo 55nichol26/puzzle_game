@@ -168,6 +168,8 @@ table {
   th, td {
     text-align: center;
     padding:18px;
+    position: relative;
+    
     /* transition: .2s; */
   }
   

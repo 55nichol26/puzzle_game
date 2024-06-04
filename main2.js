@@ -279,6 +279,8 @@ function start() {
             wrap.style.pointerEvents = "none";
             score.style.visibility = "visible"
             transcript.push(times.innerText);
+            
+
             if (stage == 6) {
                 wrap.style.pointerEvents = "none";
                 btn_start.innerText = "再玩一次";
@@ -320,7 +322,7 @@ function start() {
         document.getElementById('second_cav').appendChild(canvas3);
         let c3 = document.getElementById(`canvas3`);
         let ctx3 = c3.getContext("2d");
-        
+
         img = new Image();
         img.src = img_src;
         canvas3.width = img.width;
@@ -554,6 +556,7 @@ function start() {
 
     let score = document.getElementById('score');
     let transcript_div = document.getElementById('transcript');
+    
     score.addEventListener("click", e => {
 
         if (score.innerText == "查看成績") {
@@ -592,7 +595,23 @@ function start() {
                         cell = document.createElement("td")
                         if (j == 0) {
                             cellText = document.createTextNode(`第${i}關`)
+
+                            let canvas4 = document.createElement("canvas");
+                            canvas4.style.width = "5vw";
+                            canvas4.style.height = "5vh";
+                            canvas4.style.padding = "0px";
+                            canvas4.style.border = "1px solid black"
+                            canvas4.style.margin = "0px";
+                            canvas4.style.boxSizing = "border-box";
+                            canvas4.style.float = "left";
+                            canvas4.style.left = "4vw"
+                            canvas4.style.bottom = "1.5vh";
+                            canvas4.style.position = "absolute";
+                            canvas4.id = `canvas_${i}`;
+
+                            /////////我是分隔線////////////
                             cell.appendChild(cellText);
+                            cell.appendChild(canvas4);
                             row.appendChild(cell);
                             tab.append(row);
 
@@ -681,7 +700,32 @@ function start() {
         reader.readAsDataURL(e.target.files[0]);
     }
 
+    function score_view() {
 
+        let c4 = document.getElementById(`canvas_${stage}`);
+        let ctx4 = c4.getContext('2d');
+        let img = new Image();
+        img.src = img_src;
+        // console.log(`img_src${img_src}`)
+
+        perCol = img.width / 3;
+        perRow = img.height / 3;
+        // ctx4.clearRect(0, 0, c4.width, c4.height);
+        for (let i = 0; i < arr.length; i++) {
+            ctx4.drawImage(
+                img,
+                perCol * arr[i][0],
+                perRow * arr[i][1],
+                perCol,
+                perRow,
+                (c4.width / 3) * arr[i][0], //位子變化
+                (c4.height / 3) * arr[i][1], //位子變化
+                c4.width / 3,
+                c4.height / 3
+            );
+        }
+
+    }
 }
 
 
