@@ -4,7 +4,7 @@
     position: absolute;
     margin-top: 4%;
     /* float: left; */
-   pointer-events: none;
+    pointer-events: none;
 }
 
 #second_cav {
@@ -42,7 +42,6 @@
     position: relative;
 }
 
-
 #btn_start {
     padding: 10px 20px;
     font-size: 25px;
@@ -59,7 +58,46 @@
     margin: 0;
     float: left;
     /* left: 1vw; */
+}
 
+#download,
+#upload,
+#score {
+    padding: 5px 5px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: gray;
+    border: none;
+    border-radius: 15px;
+    /* box-shadow: 0 9px #999; */
+    position: absolute;
+    bottom: 5vh;
+    margin: 0;
+    float: left;
+    /* left: 1vw; */
+
+}
+
+#download {
+    left: 1vw;
+    width: 13%;
+    visibility: hidden;
+}
+
+#score {
+    left: 1vw;
+    width: 13%;
+    bottom: 20vh;
+    visibility: hidden;
+}
+
+#upload {
+    left: 1vw;
+    bottom: 13vh;
+    width: 13%;
 }
 
 
@@ -69,12 +107,18 @@
 }
 
 
-#btn_start:hover {
+#btn_start:hover,
+#download:hover,
+#upload:hover,
+#score:hover {
     background-color: #3e8e41
 }
 
 
-#btn_start:active {
+#btn_start:active,
+#download:active,
+#upload:active,
+#score:active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -89,3 +133,44 @@
     position: absolute;
     top: 59%;
 }
+
+#download:hover {
+    background-color: RoyalBlue;
+}
+
+#transcript {
+    background-color: rgba(211, 211, 211, 0.397);
+    height: 55vh;
+    width: 53vw;
+    background-position: 0px 20%;
+    padding: 0;
+    /* padding-left: 2%;
+    padding-top: 2%; */
+    margin-left: 0%;
+    margin-top: 3%;
+    /* border: 5px solid black; */
+    float: left;
+    position: absolute;
+    text-align: center;
+    overflow: auto;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 0px;
+    margin: 0px;
+    overflow: auto;
+  }
+  
+  th, td {
+    text-align: center;
+    padding:18px;
+    /* transition: .2s; */
+  }
+  
+  tr:nth-child(even) {
+    background-color: rgba(242, 242, 242, 0.784);
+  }

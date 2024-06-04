@@ -40,17 +40,12 @@ function init() {
     let blank = 8;
     const last = 8;
     let location_random = [...arr];
-    // draw_view();
-    // line();
-
 }
 
 function start() {
-
-
-
     let wrap = document.getElementById('main');
-    for (let i = 1; i < 5; i++) {
+
+    for (let i = 1; i < 6; i++) {
         let img = document.createElement("img");
         // img.style.width = "100px";
         // img.style.height = "100px";
@@ -58,7 +53,7 @@ function start() {
         img.src = `./img/cat_${i}.jpg`;
         wrap.appendChild(img);
     }
-
+    //main
     let canvas = document.createElement("canvas");
     canvas.style.width = "100%";
     canvas.style.height = "100%";
@@ -67,7 +62,7 @@ function start() {
     canvas.style.marginTop = "0px";
     canvas.style.boxSizing = "border-box";
     canvas.style.float = "left";
-    canvas.style.transition = " .5s"
+    // canvas.style.transition = " .5s"
     canvas.style.bottom = "1vh";
     canvas.style.position = "absolute";
     canvas.style.backgroundColor = "rgba(211, 211, 211, 0.532)"
@@ -79,14 +74,34 @@ function start() {
     let ctx = c.getContext("2d");
     let img = new Image();
     // img.src = `./img/cat1.png`;
-    var img_src = `./img/p.jpg`;
-    img.src = img_src;
+    var img_src;
+    // var img_src = `./img/p.jpg`;
+    // img.src = img_src;
+
+    //ansview 
+    let canvas2 = document.createElement("canvas");
+    canvas2.style.width = "15vw";
+    canvas2.style.height = "20vh";
+    canvas2.style.padding = "0px";
+    canvas2.style.border = "1px solid black"
+    canvas2.style.margin = "0px";
+    canvas2.style.boxSizing = "border-box";
+    canvas2.style.float = "left";
+    // canvas2.style.transition = " .5s"
+    canvas2.style.top = "1vh";
+    canvas2.style.position = "absolute";
+    canvas2.style.visibility = "hidden";
+    canvas2.id = 'canvas2';
+    document.getElementById('second_cav').appendChild(canvas2);
+    let c2 = document.getElementById(`canvas2`);
+    let ctx2 = c2.getContext("2d");
+
+
     let perCol = img.width / 3;
     let perRow = img.height / 3;
 
     let arr = [];
     let initIndex = [];
-
     let stage = 1;
 
     for (let i = 0; i < 3; i++) {
@@ -102,19 +117,28 @@ function start() {
         initCoordinate.push([value[0] * canvas.width, value[1] * canvas.height])
     }
 
+
+
+
     //init
     let blank = 8;
     const last = 8;
     let location_random = [...arr];
-
+    //難度
+    let level = [];
+    let level_index = 0;
+    let transcript = [];
     //計時
     let ms = 0, s = 0, m = 0
     let btn_start = document.getElementById('btn_start');
 
     let showpic_text = document.getElementById('showpic_text');
     let time_GO;
+    img_src = `./img/cat_${stage}.jpg`;
     btn_start.addEventListener("click", e => {
         if (btn_start.innerText == "遊戲開始") {
+            location_random = [...new Set(arr)]
+            blank = 8;
             img.src = img_src;
             perCol = img.width / 3;
             perRow = img.height / 3;
@@ -123,12 +147,18 @@ function start() {
             draw_view();
             line(ctx);
             ans_view();
+            line(ctx2);
+            canvas2.style.visibility = "visible"
+            download.style.visibility = "visible"
             //time run
             time_GO = setInterval(function () {
                 time_go()
             }, 10)
             showpic_text.innerText = "目標圖示:"
             btn_start.innerText = "重來";
+
+            if (isUpload) { stage = stage; }
+            else { stage++; }
             // canvas.toDataURL("image/jpg");
         } else if (btn_start.innerText == "重來") {
             location_random = [...new Set(arr)]
@@ -137,14 +167,18 @@ function start() {
             draw_view();
             line(ctx);
             ans_view();
+            line(ctx2);
             clearInterval(time_GO);
             ms = 0, s = 0, m = 0;
             time_GO = setInterval(function () {
                 time_go()
             }, 10)
             wrap.style.pointerEvents = "auto";
+
         }
         else if (btn_start.innerText == "下一關") {
+            location_random = [...new Set(arr)]
+            blank = 8;
             img_src = `./img/cat_${stage}.jpg`;
             img.src = img_src;
             perCol = img.width / 3;
@@ -154,26 +188,56 @@ function start() {
             draw_view();
             line(ctx);
             ans_view();
+            line(ctx2);
+            clearInterval(time_GO);
+            ms = 0, s = 0, m = 0;
             //time run
             time_GO = setInterval(function () {
                 time_go()
             }, 10)
             btn_start.innerText = "重來";
+            // if (isUpload) { stage = stage; }
+            // else { stage++; }
             stage++;
             wrap.style.pointerEvents = "auto";
-            // aDownload.href = canvas.toDataURL("image/jpg");
+            level_index++;
+        } else if (btn_start.innerText == "再玩一次") {
+            location_random = [...new Set(arr)]
+            blank = 8;
+            stage = 1;
+            img_src = `./img/cat_${stage}.jpg`;
+            img.src = img_src;
+            perCol = img.width / 3;
+            perRow = img.height / 3;
+            // img_src = `./img/cat_${stage}.jpg`;
+            // perCol = img.width / 3;
+            // perRow = img.height / 3;
+            wrap.style.pointerEvents = "auto";
+            review();
+            draw_view();
+            line(ctx);
+            ans_view();
+            line(ctx2);
+            clearInterval(time_GO);
+            ms = 0, s = 0, m = 0;
+            //time run
+            time_GO = setInterval(function () {
+                time_go()
+            }, 10)
+            showpic_text.innerText = "目標圖示:"
+            btn_start.innerText = "重來";
+            if (isUpload) { stage = stage; }
+            else { stage++; }
         }
-        // btn_reset.style.visibility="visible";
-        // btn_finish.style.visibility="visible";
-        // btn_start.style.display="none";
+
+
+
 
     });
 
 
     //點擊移動
     canvas.addEventListener("click", e => {
-        // console.log('hihi')
-        // if (this.isFinish) return;
         let ex = e.clientX,
             ey = e.clientY,
             rect = canvas.getBoundingClientRect(),
@@ -184,10 +248,6 @@ function start() {
 
         let clickIndex = getIndex(ex, ey);
         let blanckIndex = arr.indexOf(location_random[last]);
-        console.log('blanckIndex' + blanckIndex)
-        console.log('arr[last]' + arr[last])
-        console.log('location_random' + location_random.toString())
-
         let dis = distance(clickIndex, blanckIndex);
         //can move
         if (dis == 1) {
@@ -200,10 +260,10 @@ function start() {
 
     });
 
-
+    var isFinish_tag;
 
     function isFinish() {
-        let isFinish_tag = false;
+        isFinish_tag = false;
         let count = 0;
         for (let i = 0; i < initIndex.length; i++) {
             if (location_random[i] === arr[i]) {
@@ -216,8 +276,13 @@ function start() {
         if (isFinish_tag) {
             clearInterval(time_GO);
             btn_start.innerText = "下一關";
-            // img.src = canvas.toDataURL("image/jpg");
             wrap.style.pointerEvents = "none";
+            score.style.visibility = "visible"
+            transcript.push(times.innerText);
+            if (stage == 6) {
+                wrap.style.pointerEvents = "none";
+                btn_start.innerText = "再玩一次";
+            }
         }
 
     }
@@ -226,25 +291,9 @@ function start() {
 
 
     function ans_view() {
-        let canvas2 = document.createElement("canvas");
-        canvas2.style.width = "15vw";
-        canvas2.style.height = "20vh";
-        canvas2.style.padding = "0px";
-        canvas2.style.border = "1px solid black"
-        canvas2.style.margin = "0px";
-        canvas2.style.boxSizing = "border-box";
-        canvas2.style.float = "left";
-        canvas2.style.transition = " .5s"
-        canvas2.style.top = "1vh";
-        canvas2.style.position = "absolute";
-        canvas2.id = 'canvas2';
-        document.getElementById('second_cav').appendChild(canvas2);
-        let c2 = document.getElementById(`canvas2`);
-        let ctx2 = c2.getContext("2d");
-
         img = new Image();
         img.src = img_src;
-
+        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
         for (let i = 0; i < arr.length; i++) {
             ctx2.drawImage(
                 img,
@@ -252,13 +301,45 @@ function start() {
                 perRow * arr[initIndex[i]][1],
                 perCol,
                 perRow,
-                (canvas.width / 3) * arr[i][0], //位子變化
-                (canvas.height / 3) * arr[i][1], //位子變化
-                canvas.width / 3,
-                canvas.height / 3
+                (canvas2.width / 3) * arr[i][0], //位子變化
+                (canvas2.height / 3) * arr[i][1], //位子變化
+                canvas2.width / 3,
+                canvas2.height / 3
             );
 
-            line(ctx2);
+        }
+
+    }
+
+
+    function download_view() {
+
+        let canvas3 = document.createElement("canvas");
+        canvas3.style.display = "none";
+        canvas3.id = 'canvas3';
+        document.getElementById('second_cav').appendChild(canvas3);
+        let c3 = document.getElementById(`canvas3`);
+        let ctx3 = c3.getContext("2d");
+        
+        img = new Image();
+        img.src = img_src;
+        canvas3.width = img.width;
+        canvas3.height = img.height;
+        ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+
+        for (let i = 0; i < arr.length; i++) {
+            ctx3.drawImage(
+                img,
+                perCol * arr[initIndex[i]][0],
+                perRow * arr[initIndex[i]][1],
+                perCol,
+                perRow,
+                (canvas3.width / 3) * arr[i][0], //位子變化
+                (canvas3.height / 3) * arr[i][1], //位子變化
+                canvas3.width / 3,
+                canvas3.height / 3
+            );
+
         }
 
     }
@@ -309,7 +390,7 @@ function start() {
         // let y = arr[blank][1];
 
         //遞增難度
-        let level = Math.floor(Math.random() * 3) + 3;
+        // let level = Math.floor(Math.random() * 3) + 3;
 
         //等級 random  打亂畫面
         let blank_his = [];
@@ -317,8 +398,14 @@ function start() {
         let k = 0;
         // blank_his.push(blank);
 
+
+        for (let i = 0; i < 6; i++) {
+            //  level.push((i * 2) + 3) //測試先ez
+            level.push(2)
+        }
+
         //我在這!!
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < level[level_index]; i++) {
             let temp_arr = [];
             let x = arr[blank][0];
             let y = arr[blank][1];
@@ -333,7 +420,6 @@ function start() {
                     temp_arr.splice(temp_arr.indexOf(val), 1);
                 }
             }
-            // console.log(temp_arr.toString())
             let ran = Math.floor(Math.random() * temp_arr.length);
 
             //arr.indexOf(temp_arr[ran]) 要去的位子
@@ -346,7 +432,6 @@ function start() {
                     temp_arr.splice(temp_arr.indexOf(temp_arr[ran]), 1);
                     ran = Math.floor(Math.random() * temp_arr.length);
                     blank = arr.indexOf(temp_arr[ran]);
-                    // console.log(temp_arr.toString())
                 }
             }
             location_random[last] = arr[blank];
@@ -364,7 +449,6 @@ function start() {
 
         let repeat_val;
         repeat.forEach(element => {
-            // console.log('aaa' + );
             repeat_val = arr.indexOf(element);
         });
         //整理
@@ -372,6 +456,7 @@ function start() {
         result.forEach(element => {
             location_random.splice(repeat_val, 0, element)
         });
+
     }
     //繪製畫面
     function draw_view() {
@@ -401,7 +486,6 @@ function start() {
                 );
             }
 
-            // console.log(`test${(canvas.width / 3) * location_random[i][0]}`)
 
         }
     }
@@ -459,29 +543,116 @@ function start() {
 
     let download = document.getElementById('download');
     download.addEventListener("click", e => {
-        console.log(`hiii`)
-
-        //  let link = document.getElementById('aDownload')
         var link = document.createElement('a');
         link.download = 'cat.jpg';
-        link.href = document.getElementById('canvas1').toDataURL()
+        download_view();
+        link.href = document.getElementById('canvas3').toDataURL();
         link.click();
     })
 
 
 
+    let score = document.getElementById('score');
+    let transcript_div = document.getElementById('transcript');
+    score.addEventListener("click", e => {
 
+        if (score.innerText == "查看成績") {
+
+            if (document.querySelector('table')) {
+                let tab = document.querySelector('table');
+                tab.remove();
+
+            }
+            //建立table
+            let tab = document.createElement("table");
+            let row;
+            let cell;
+            let cellText;
+            for (let i = 0; i < transcript.length + 1; i++) {
+                row = document.createElement("tr")
+                if (i == 0) {
+                    for (let j = 0; j < 2; j++) {
+                        cell = document.createElement("th")
+                        if (j == 0) {
+                            cellText = document.createTextNode(`關卡`)
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                            tab.append(row);
+
+                        } else {
+                            cellText = document.createTextNode(`成績`)
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                            tab.append(row);
+
+                        }
+                    }
+                } else {
+                    for (let j = 0; j < 2; j++) {
+                        cell = document.createElement("td")
+                        if (j == 0) {
+                            cellText = document.createTextNode(`第${i}關`)
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                            tab.append(row);
+
+                        } else {
+                            cellText = document.createTextNode(`${transcript[(i - 1)]}`)
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                            tab.append(row);
+
+                        }
+                    }
+                }
+            }
+            transcript_div.appendChild(tab);
+            ///建立table 完
+            let se = document.getElementById('second');
+            se.style.visibility = "hidden"
+            wrap.style.visibility = "hidden";
+            canvas2.style.visibility = "hidden";
+            download.style.visibility = "hidden";
+            upload.style.visibility = "hidden";
+            transcript_div.style.visibility = "visible";
+            // score.innerText = "回遊戲"
+            score.innerHTML = `<i class="fa-solid fa-rotate-left"></i>回遊戲`
+        } else if (score.innerText == "回遊戲") {
+            let se = document.getElementById('second');
+            se.style.visibility = "visible"
+            wrap.style.visibility = "visible";
+            canvas2.style.visibility = "visible";
+            download.style.visibility = "visible";
+            upload.style.visibility = "visible";
+            transcript_div.style.visibility = "hidden";
+            // score.innerText = "查看成績"
+            score.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>查看成績`
+            if (document.querySelector('table')) {
+                let tab = document.querySelector('table');
+                tab.style.visibility = "hidden";
+            }
+        }
+
+
+
+    })
+
+    var upload = document.getElementById('upload');
     var imageLoader = document.getElementById('imageLoader');
     imageLoader.addEventListener('change', handleImage, false);
+
+    var isUpload = false;
     /////////////我是分隔線//////////////
     function handleImage(e) {
+        isUpload = false;
         var reader = new FileReader();
         reader.onload = function (event) {
-            var img = new Image();
+            let img = new Image();
             img.onload = function () {
-
+                // let canvas=document.getElementById('canvas1')
                 perCol = img.width / 3;
                 perRow = img.height / 3;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 for (let i = 0; i < arr.length; i++) {
                     ctx.drawImage(
                         img,
@@ -496,15 +667,20 @@ function start() {
                     );
                 }
                 ans_view();
-                // line(ctx);
+                isUpload = true;
             }
             img.src = event.target.result;
             img_src = event.target.result;
             btn_start.innerText = "遊戲開始";
-            showpic_text.innerText = "目標圖示:"
+            showpic_text.innerText = "目標圖示:";
+            clearInterval(time_GO);
+            ms = 0, s = 0, m = 0;
+            times.innerText = "00:00:00"
+
         }
         reader.readAsDataURL(e.target.files[0]);
     }
+
 
 }
 
