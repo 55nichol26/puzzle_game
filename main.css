@@ -12,7 +12,7 @@
     width: 25vw;
     height: 26vh;
     position: absolute;
-    margin-left: 15%;
+    margin-left: 26%;
     margin-top: 0;
     padding: 0px;
 }
@@ -163,16 +163,18 @@ table {
     padding: 0px;
     margin: 0px;
     overflow: auto;
-  }
-  
-  th, td {
+}
+
+th,
+td {
     text-align: center;
-    padding:18px;
+    padding: 15px;
     position: relative;
-    
+    font-size: 20px;
+    /* left: 2vw; */
     /* transition: .2s; */
-  }
-  
-  tr:nth-child(even) {
+}
+
+tr:nth-child(even) {
     background-color: rgba(242, 242, 242, 0.784);
-  }
+}
